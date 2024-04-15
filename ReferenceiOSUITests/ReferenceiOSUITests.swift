@@ -24,10 +24,12 @@ class ReferenceiOSUITests: XCTestCase {
             app = nil
         }
     
+    //Test to verify that the initial label is displayed
     func testInitialLabel(){
         currencyRobot.initialLabel()
     }
     
+    //Test to verify that lable is updated from initial label to the lable with data in correct currency format
     func testButtonUpdatesLabelWithCurrencyFormat() throws {
         let label = app.staticTexts["label"]
         currencyRobot.buttonTap()
@@ -35,7 +37,7 @@ class ReferenceiOSUITests: XCTestCase {
         XCTAssertTrue(currencyRobot.isValidCurrencyFormat(updatedLabelText))
     }
     
-    
+    // Test the application accessibility by putting it into background, reopening and swiping the screen
     func testAppAccesibility(){
         let label = app.staticTexts["label"]
         currencyRobot.buttonTap()
@@ -46,7 +48,8 @@ class ReferenceiOSUITests: XCTestCase {
         let updatedLabelText = label.label
         XCTAssertTrue(currencyRobot.isValidCurrencyFormat(updatedLabelText))
     }
-
+    
+    // Test the application in landscape mode
     func testLandscapeMode(){
         XCUIDevice.shared.orientation = .landscapeLeft
         let label = app.staticTexts["label"]
@@ -57,3 +60,4 @@ class ReferenceiOSUITests: XCTestCase {
     }
     
 }
+
