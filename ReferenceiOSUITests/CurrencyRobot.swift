@@ -14,7 +14,7 @@ class CurrencyRobot {
     
     //Function to verify that the initial label is displayed
     @discardableResult
-    func initialLabel() -> Self{
+    func verifyInitialLabelDisplayed() -> Self{
         let label = app.staticTexts["label"]
         let labelText = label.label
         XCTAssertTrue(labelText.contains("Hello"), "Initial label is not displayed")
@@ -23,7 +23,7 @@ class CurrencyRobot {
     
     //Function to tap the button
     @discardableResult
-    func buttonTap() -> Self{
+    func tapButton() -> Self{
         let button = app.buttons["Button"]
         XCTAssertTrue(button.exists, "Button is not displayed")
         button.tap()
@@ -32,40 +32,40 @@ class CurrencyRobot {
     
     //Function to verify that the lable has a correct currency format
     @discardableResult
-    func isValidCurrencyFormat(_ text: String) -> Bool {
+    func checkCurrencyFormat(_ text: String) -> Bool {
         return text.contains("€") && text.contains(".") && text.contains(",")
     }
     
 
     //Function to put the app into background
     @discardableResult
-    func appIntoBackground() -> Self{
+    func putAppIntoBackground() -> Self{
         XCUIDevice.shared.press(.home)
         return self
     }
     
     //Function to reopen the app
     @discardableResult
-    func appReopen() -> Self{
+    func reopenApp() -> Self{
         app.activate()
         return self
     }
     
     //Function to swipe the screen in order to verify that the label is displayed
     @discardableResult
-    func screenSwipe() -> Self{
+    func swipeScreen() -> Self{
         let label = app.staticTexts["label"]
         app.swipeUp()
         app.swipeDown()
         app.swipeLeft()
         app.swipeRight()
-        XCTAssertTrue(label.exists, "Label is not displayed")
+        XCTAssertTrue(label.exists, "Label is not displayed after swiping")
         return self
     }
     
     //Function to test that the button is responsive
     @discardableResult
-    func buttonTest() -> Self{
+    func testButtonResponsiveness() -> Self{
         let button = app.buttons["Button"]
         button.tap()
         button.doubleTap()

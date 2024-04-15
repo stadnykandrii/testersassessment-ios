@@ -25,38 +25,42 @@ class ReferenceiOSUITests: XCTestCase {
         }
     
     //Test to verify that the initial label is displayed
-    func testInitialLabel(){
-        currencyRobot.initialLabel()
+    func testInitialLabelDisplayed(){
+        currencyRobot.verifyInitialLabelDisplayed()
     }
     
     //Test to verify that lable is updated from initial label to the lable with data in correct currency format
     func testButtonUpdatesLabelWithCurrencyFormat() throws {
         let label = app.staticTexts["label"]
-        currencyRobot.buttonTap()
+        currencyRobot.tapButton()
         let updatedLabelText = label.label
-        XCTAssertTrue(currencyRobot.isValidCurrencyFormat(updatedLabelText))
+        XCTAssertTrue(currencyRobot.checkCurrencyFormat(updatedLabelText), "Currency format is not correct")
     }
     
-    // Test the application accessibility by putting it into background, reopening and swiping the screen
+    // Test the application accessibility by putting it into background, reopening and swiping the screen and testing the button responsiveness, making sure that app is still functioning as expected
     func testAppAccesibility(){
         let label = app.staticTexts["label"]
-        currencyRobot.buttonTap()
-        currencyRobot.appIntoBackground()
-        currencyRobot.appReopen()
-        currencyRobot.screenSwipe()
-        currencyRobot.buttonTest()
+        currencyRobot.tapButton()
+        currencyRobot.putAppIntoBackground()
+        currencyRobot.reopenApp()
+        currencyRobot.swipeScreen()
+        currencyRobot.testButtonResponsiveness()
         let updatedLabelText = label.label
-        XCTAssertTrue(currencyRobot.isValidCurrencyFormat(updatedLabelText))
+        XCTAssertTrue(currencyRobot.checkCurrencyFormat(updatedLabelText), "Currency format is not correct")
     }
     
     // Test the application in landscape mode
     func testLandscapeMode(){
         XCUIDevice.shared.orientation = .landscapeLeft
         let label = app.staticTexts["label"]
-        currencyRobot.initialLabel()
-        currencyRobot.buttonTap()
+        currencyRobot.verifyInitialLabelDisplayed()
+        currencyRobot.tapButton()
         let updatedLabelText = label.label
-        XCTAssertTrue(currencyRobot.isValidCurrencyFormat(updatedLabelText))
+        XCTAssertTrue(currencyRobot.checkCurrencyFormat(updatedLabelText), "Currency format is not correct")
+        XCUIDevice.shared.orientation = .portrait
+        currencyRobot.tapButton()
+        let updatedLabelText2 = label.label
+        XCTAssertTrue(currencyRobot.checkCurrencyFormat(updatedLabelText2), "Currency format is not correct")
     }
     
 }
